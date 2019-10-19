@@ -116,3 +116,7 @@ git submodule add <your remote repository url ex. Github> Coinbot.<name of the e
 ## Improving included algorithms
 
 The actual behavior of bot is programmed in SimpleBot implementation of IBot. If you'd like to improve it's performance or create a new algorithm, feel free to fork project and then commit a merge request. Remember to use Unit tests to determine if your algorithm works as intended.
+
+## USE AT YOUR OWN RISK
+
+We don't provide any guarantee the provided source codes works. Project should be considered as for educational purposes only. DO NOT EVER RISK YOUR ASSERTS. Authors of this projects will not be liable for any lossess and damages in connection with the use of this source code.
