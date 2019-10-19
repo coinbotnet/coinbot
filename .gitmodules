@@ -1,0 +1,9 @@
+[submodule "Coinbot.Bitbay"]
+	path = Coinbot.Bitbay
+	url = https://github.com/coinbotnet/bitbay-connector.git
+[submodule "Coinbot.Binance"]
+	path = Coinbot.Binance
+	url = https://github.com/coinbotnet/binance-connector.git
+[submodule "Coinbot.Bittrex"]
+	path = Coinbot.Bittrex
+	url = https://github.com/coinbotnet/bittrex-connector.git

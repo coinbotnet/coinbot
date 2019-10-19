@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "envFile": "${workspaceFolder}/.env",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Coinbot.Core/bin/Debug/netcoreapp2.2/Coinbot.Core.dll",
+            "args": [
+                "--verbose=true",
+                "--stock=Binance",
+                "--basecoin=BTC",
+                "--targetcoin=STRAT",
+                "--api-key=${env:API_KEY}",
+                "--secret=${env:SECRET}",
+                "--buy-change=0,00",
+                "--sell-change=0,00",
+                "--quantity=0,001",
+                "--ceiling=0,001",
+                "--interval=30"
+            ],
+            "cwd": "${workspaceFolder}/Coinbot.Core",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

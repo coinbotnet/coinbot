@@ -1,0 +1,100 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "dependsOn": [
+                "bitbayconnector",
+                "binanceconnector",
+                "bittrexconnector"
+            ],
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Coinbot.Core/Coinbot.Core.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Coinbot.Core/Coinbot.Core.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "bitbayconnector",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Coinbot.Bitbay/Coinbot.Bitbay.csproj",
+                "-c",
+                "Debug",
+                "-o",
+                "${workspaceFolder}/Coinbot.Core/Connectors"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "binanceconnector",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Coinbot.Binance/Coinbot.Binance.csproj",
+                "-c",
+                "Debug",
+                "-o",
+                "${workspaceFolder}/Coinbot.Core/Connectors"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "bittrexconnector",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Coinbot.Bittrex/Coinbot.Bittrex.csproj",
+                "-c",
+                "Debug",
+                "-o",
+                "${workspaceFolder}/Coinbot.Core/Connectors"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/Coinbot.Core/Coinbot.Core.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "args": [
+                "test",
+                "${workspaceFolder}/Coinbot.Tests/Coinbot.Tests.csproj"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$tsc"
+        }
+    ]
+}
