@@ -1,6 +1,41 @@
 # Running
 
+The most convinient way to run Coinbot is docker. You'll need to build a docker image (instructions below) and then run it. You have full control over how image is built and you have guarantee that the code wasn't modified.
 
+More convinient way of doing it is to use one of official builds on hub.docker.com. You don't need to install any SDKs on your machine but you highly depend on external source which is less secure (imagine someone hacks into docker hub and swaps image with malicious build of coinbot).
+
+You can build and run coinbot for both Docker Windows and Docker Linux Containers.
+
+## Pulling image from official docker repository
+
+`docker pull coinbotnet/coinbot:latest`
+
+## Running example
+
+```bash
+docker run -d \
+ --name=binance-btc-bnb \
+ -v binance-btc-bnb:/root/.config/Coinbot \
+ -v /opt/connectors:/app/Connectors \
+ coinbotnet/coinbot:latest \
+ --stock=Binance \
+ --basecoin=BTC \
+ --targetcoin=BNB \
+ --api-key=YOUR_API_KEY \
+ --secret=YOUR_SECRET \
+ --verbose=true \
+ --buy-change=0.05 \
+ --sell-change=0.02 \
+ --quantity=0.001 \
+ --ceiling=0.01 \
+ --interval=360
+```
+
+As for docker, the only necessary things you have to do is to provide two volumes. 
+
+`/root/.config/Coinbot` is for application data persistence (mostly sqlitedb). You want to keep it as long as possible as it contains historical data for statistics purposes (in future).
+
+`/app/Connectors` here is the place you should copy over any connectors you have build. Core does not contain any connectors out-of-the box. You have to download them from connector project page. Check for official connectors available on https://github.com/coinbotnet/
 
 # Building
 
@@ -13,8 +48,6 @@ You'll need .NET Core SDKs to build this project. It is cross-platform framework
 
 ## Building docker image
 
-You can use already built images on hub.docker.com. The only official repo is https://hub.docker.com/u/pniewiadomski
-
 To build an image from sources you'll need to run below command in the root directory
 
 `docker build -t coinbot .`
@@ -25,6 +58,8 @@ Then you can run it with
 
 # Developing
 
+Firstly, you have to clone this repository with `--recursive` flag so you'll be able to use official external connection providers.
+
 The preferred way to develop Coinbot is Visual Studio Code https://code.visualstudio.com/ with C# Extension. Feel free to use Visual Studio 2017/2019 Professional. You'll need to manually configure tasks so the connectors will be compiled though.
 
 * Ctrl+Shift+B builds project.
@@ -34,7 +69,7 @@ Before running debug you'd like to define `.env` file in the root directory of t
 
 Example of .env file:
 
-```
+```bash
 API_KEY=myapikey
 SECRET=mysecret
 ```
@@ -45,7 +80,7 @@ Project contains XUnit project which has few useful tests. There's no need to ru
 
 * BinanceTest.cs - contains an example of connector unit test. You'll have to provide API_KEY and SECRET with environmental variables for ex. (Linux / Mac OS X) `API_KEY=abcd SECRET=efgh dotnet test --filter "Category=Binance"` or for Windows PowerShell:
 
-    ```
+    ```ps
     $env:API_KEY = "abcdef";
     $env:SECRET = "efgh";
     dotnet test --filter "Category=Binance"
@@ -64,7 +99,7 @@ Project contains XUnit project which has few useful tests. There's no need to ru
 * Create your own repository on github or any other repo for the submodule
 * (Optionally) Copy .gitignore file from Coinbot.Bitbay with `cp .gitignore ../Coinbot.Bittrex`
 * Push your repo to remote repository and then add project as a submodule
-```
+```bash
 cd Coinbot.<name of the exchange>/
 git init
 git remote add origin <your remote repository url ex. Github>

@@ -10,6 +10,8 @@ RUN dotnet publish -c Release -o ../out Coinbot.Core.csproj
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
+VOLUME /app/Connectors
+VOLUME /root/.config/Coinbot
 COPY --from=build ./build/out .
 ENTRYPOINT ["dotnet","Coinbot.Core.dll"] 
 CMD ["--help"]
