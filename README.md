@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coinbotnet/coinbot.svg?branch=master)](https://travis-ci.org/coinbotnet/coinbot)
+
 # Running
 
 The most convinient way to run Coinbot is docker. You'll need to build a docker image (instructions below) and then run it. You have full control over how image is built and you have guarantee that the code wasn't modified.
