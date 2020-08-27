@@ -10,7 +10,7 @@ You can build and run coinbot for both Docker Windows and Docker Linux Container
 
 ## Pulling image from official docker repository
 
-`docker pull coinbotnet/coinbot:latest`
+`docker pull maplepoland/coinbotnet:latest`
 
 ## Running example
 
