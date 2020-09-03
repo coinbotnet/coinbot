@@ -7,7 +7,6 @@ using NLog;
 using NLog.Extensions.Logging;
 using System.Threading;
 using McMaster.Extensions.CommandLineUtils;
-using Coinbot.Core.Models;
 
 namespace Coinbot.Core
 {

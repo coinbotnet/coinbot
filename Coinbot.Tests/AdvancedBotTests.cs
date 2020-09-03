@@ -3,7 +3,6 @@ using System;
 using AutoMapper;
 using Coinbot.Bitdummy;
 using Coinbot.Core.Implementations;
-using Coinbot.Core.Models;
 using Coinbot.Domain.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

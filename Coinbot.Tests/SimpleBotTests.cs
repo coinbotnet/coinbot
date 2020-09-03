@@ -3,7 +3,6 @@ using System;
 using AutoMapper;
 using Coinbot.Bitdummy;
 using Coinbot.Core.Implementations;
-using Coinbot.Core.Models;
 using Coinbot.Domain.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +10,7 @@ using Xunit;
 using NLog.Extensions.Logging;
 using Microsoft.Extensions.Logging;
 using Coinbot.Domain.Contracts.Models;
+using NLog;
 
 namespace Coinbot.Tests
 {
@@ -29,6 +29,7 @@ namespace Coinbot.Tests
                 .AddLogging(loggingBuilder =>
                 {
                     loggingBuilder.AddConsole();
+                    loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
                 })
                 .AddAutoMapper(typeof(StockApiService))
                 .AddTransient<IStockApiService, StockApiService>()
@@ -36,14 +37,14 @@ namespace Coinbot.Tests
                 .AddSingleton<IDatabaseService, TempDb.DatabaseService>()
                 .AddSingleton<SessionInfo>(new SessionInfo
                 {
-                    BuyoutCeiling = 5000,
-                    ChangeToBuy = 0.05,
-                    ChangeToSell = 0.05,
-                    Interval = 30,
-                    BaseCoin = "PLN",
-                    TargetCoin = "BTC",
-                    Stock = "Bitbay",
-                    Stack = 250
+                    BuyoutCeiling = 0.02,
+                    ChangeToBuy = 0.02,
+                    ChangeToSell = 0.02,
+                    Interval = 3600,
+                    BaseCoin = "BTC",
+                    TargetCoin = "BNB",
+                    Stock = "Binance",
+                    Stack = 0.002
                 });
 
             _provider = serviceCollection.BuildServiceProvider();
@@ -51,15 +52,15 @@ namespace Coinbot.Tests
             _db = _provider.GetService<IDatabaseService>();
             _logger = _provider.GetService<ILogger<SimpleBotTests>>();
             _session = _provider.GetService<SessionInfo>();
-
+        
         }
 
         [Fact]
         public async void Simulation()
         {
             ServiceResponse resp = new ServiceResponse(0, "OK");
-            
-            while(resp.Success)
+
+            while (resp.Success)
             {
                 resp = await _bot.BuyIfConditionsMet();
                 await _bot.SellIfConditionsMet();
@@ -69,7 +70,7 @@ namespace Coinbot.Tests
             var remaining = await _db.GetUnsoldTransactions(_session.BaseCoin, _session.TargetCoin, _session.Stock);
 
             _logger.LogInformation($"Bot has made {profit.Data}");
-            _logger.LogInformation($"Bot didn't manage to sell a remaining {remaining.Data.Sum(x=> x.QuantityBought)} BTC");
+            _logger.LogInformation($"Bot didn't manage to sell a remaining {remaining.Data?.Sum(x => x.QuantityBought) ?? 0} {_session.TargetCoin}");
 
         }
     }

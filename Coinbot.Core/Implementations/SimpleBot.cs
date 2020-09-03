@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Coinbot.Core.Models;
 using Coinbot.Domain.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -90,7 +89,7 @@ namespace Coinbot.Core.Implementations
                                 ClearStacks();
                                 return new ServiceResponse(0, "The rate has reached max in stack");
                             }
-
+                            
                             var serviceResult = await _service.PlaceBuyOrder(_session.BaseCoin, _session.TargetCoin, _session.Stack, _session.ApiKey, _session.Secret, _stack.Peek());
 
                             if (serviceResult.Success)
@@ -99,7 +98,7 @@ namespace Coinbot.Core.Implementations
 
                                 if (dbResult.Success)
                                 {
-                                    _logger.LogInformation(string.Format("Placed {0} buy order for {1}", _session.TargetCoin, _stack.Peek().ToString("0.000000000000000")));
+                                    _logger.LogInformation(string.Format("Placed {0} buy order with id {2} for {1}", _session.TargetCoin, _stack.Peek().ToString("0.000000000000000"),serviceResult.Data.OrderRefId));
                                     ClearStacks();
 
                                     if (_service.GetStockInfo().FillOrKill)
@@ -221,7 +220,7 @@ namespace Coinbot.Core.Implementations
 
                     if (serviceResult.Success)
                     {
-                        _logger.LogInformation(string.Format("Placed new sell order with id {0}", serviceResult.Data.OrderRefId));
+                        _logger.LogInformation(string.Format("Placed new sell order with id {0} for {1} (buy id: {2})", serviceResult.Data.OrderRefId, greedyRate));
                         var dbResult = await _db.TransactionOrderPlaced(item.Id, serviceResult.Data.OrderRefId, greedyRate);
 
                         if (dbResult.Success)
@@ -237,7 +236,7 @@ namespace Coinbot.Core.Implementations
                         var profit = await _db.GetProfit(_session.BaseCoin, _session.TargetCoin, _session.Stock);
                         
                         if(profit.Success)
-                            _logger.LogInformation($"Simple bot earned {profit.Data} {_session.BaseCoin} so far");
+                            _logger.LogInformation($"Simple bot earned {profit.Data.ToString("0.000000000000000")} {_session.BaseCoin} so far");
                     }
                     return new ServiceResponse(serviceResult.Status, serviceResult.Message);
                 }

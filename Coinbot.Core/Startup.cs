@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Coinbot.Core.Models;
 using Coinbot.Domain.Contracts;
 using Coinbot.SQLite.Implementations;
 using McMaster.Extensions.CommandLineUtils;
