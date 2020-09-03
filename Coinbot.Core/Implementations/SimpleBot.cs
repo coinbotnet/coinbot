@@ -220,7 +220,7 @@ namespace Coinbot.Core.Implementations
 
                     if (serviceResult.Success)
                     {
-                        _logger.LogInformation(string.Format("Placed new sell order with id {0} for {1} (buy id: {2})", serviceResult.Data.OrderRefId, greedyRate));
+                        _logger.LogInformation(string.Format("Placed new sell order with id {0} for {1}", serviceResult.Data.OrderRefId, greedyRate));
                         var dbResult = await _db.TransactionOrderPlaced(item.Id, serviceResult.Data.OrderRefId, greedyRate);
 
                         if (dbResult.Success)
