@@ -60,7 +60,7 @@ namespace Coinbot.Core.Implementations
                 var percentageChange = 1 - (_stack.Peek() / _stack.Max());
                 _previousPercentage.Push(percentageChange);
 
-                _logger.LogTrace("Max of stack: {0} Tick: {1}", _stack.Max().ToString("0.000000000000000", CultureInfo.InvariantCulture), _stack.Peek().ToString("0.000000000000000", CultureInfo.InvariantCulture));
+                _logger.LogTrace("Max of stack: {0} Tick: {1}", _stack.Max().ToString("0.00000000", CultureInfo.InvariantCulture), _stack.Peek().ToString("0.00000000", CultureInfo.InvariantCulture));
                 _logger.LogTrace($"Percentage change: {_previousPercentage.Peek()}. Maximum percentage change: {_previousPercentage.Max()}");
 
                 // here we check if the next transaction would exceed the limit
@@ -90,7 +90,7 @@ namespace Coinbot.Core.Implementations
                                 return new ServiceResponse(0, "The rate has reached max in stack");
                             }
                             
-                            var serviceResult = await _service.PlaceBuyOrder(_session.BaseCoin, _session.TargetCoin, _session.Stack, _session.ApiKey, _session.Secret, _stack.Peek());
+                            var serviceResult = await _service.PlaceBuyOrder(_session.BaseCoin, _session.TargetCoin, _session.Stack, _session.ApiKey, _session.Secret, _stack.Peek(), _session.TestMode);
 
                             if (serviceResult.Success)
                             {
@@ -98,7 +98,7 @@ namespace Coinbot.Core.Implementations
 
                                 if (dbResult.Success)
                                 {
-                                    _logger.LogInformation(string.Format("Placed {0} buy order with id {2} for {1}", _session.TargetCoin, _stack.Peek().ToString("0.000000000000000"),serviceResult.Data.OrderRefId));
+                                    _logger.LogInformation(string.Format("Placed {0} buy order with id {2} for {1}", _session.TargetCoin, _stack.Peek().ToString("0.00000000"),serviceResult.Data.OrderRefId));
                                     ClearStacks();
 
                                     if (_service.GetStockInfo().FillOrKill)
@@ -216,7 +216,7 @@ namespace Coinbot.Core.Implementations
                         continue;
 
 
-                    var serviceResult = await _service.PlaceSellOrder(_session.BaseCoin, _session.TargetCoin, _session.Stack, _session.ApiKey, _session.Secret, item.QuantityBought, item.ToSellFor, greedyRate);
+                    var serviceResult = await _service.PlaceSellOrder(_session.BaseCoin, _session.TargetCoin, _session.Stack, _session.ApiKey, _session.Secret, item.QuantityBought, item.ToSellFor, greedyRate, _session.TestMode);
 
                     if (serviceResult.Success)
                     {
@@ -236,7 +236,7 @@ namespace Coinbot.Core.Implementations
                         var profit = await _db.GetProfit(_session.BaseCoin, _session.TargetCoin, _session.Stock);
                         
                         if(profit.Success)
-                            _logger.LogInformation($"Simple bot earned {profit.Data.ToString("0.000000000000000")} {_session.BaseCoin} so far");
+                            _logger.LogInformation($"Simple bot earned {profit.Data.ToString("0.00000000")} {_session.BaseCoin} so far");
                     }
                     return new ServiceResponse(serviceResult.Status, serviceResult.Message);
                 }
