@@ -120,7 +120,7 @@ namespace Coinbot.Core.Implementations
                 }
             }
             else
-                return new ServiceResponse(100, "Couldn't get any info about orders or ticker");
+                return new ServiceResponse(100, result.Message);
 
             return new ServiceResponse(0, "Conditions didn't met yet. Waiting ...");
         }
