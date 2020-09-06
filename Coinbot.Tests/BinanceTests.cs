@@ -39,5 +39,12 @@ namespace Coinbot.Tests
             var exception = await Assert.ThrowsAsync<Exception>(async () => await _service.GetOrder("BTC","LTC", System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), "1"));
             Assert.Equal("Binance GetOrder method returned: BadRequest Msg: {\"code\":-2013,\"msg\":\"Order does not exist.\"}", exception.Message);
         }
+
+        [Fact]
+        public async void PlaceOrder()
+        {
+            var result = await _service.PlaceBuyOrder("BTC", "BNB", 0.002, System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), 0.0021767, true);
+            Assert.True(result.Success, "Couldn't place buy order ...");
+        }
     }
 }

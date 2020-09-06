@@ -112,7 +112,7 @@ namespace Coinbot.Bitdummy
 
         }
 
-        public async Task<ServiceResponse<Transaction>> PlaceBuyOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double rate)
+        public async Task<ServiceResponse<Transaction>> PlaceBuyOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double rate, bool? testOnly = false)
         {
             return new ServiceResponse<Transaction>(0, new Transaction
             {
@@ -122,7 +122,7 @@ namespace Coinbot.Bitdummy
             });
         }
 
-        public async Task<ServiceResponse<Transaction>> PlaceSellOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double qty, double toSellFor, double? raisedChangeToSell = null)
+        public async Task<ServiceResponse<Transaction>> PlaceSellOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double qty, double toSellFor, double? raisedChangeToSell = null, bool? testOnly = false)
         {
             return new ServiceResponse<Transaction>(0, new Transaction
             {
