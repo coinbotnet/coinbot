@@ -49,7 +49,7 @@ namespace Coinbot.Core
                 .FromAssemblies(Assembly.LoadFile(connector))
                     .AddClasses(classes => classes.AssignableTo<IStockApiService>())
                         .AsImplementedInterfaces()
-                        .WithTransientLifetime()
+                        .WithSingletonLifetime()
                 ).BuildServiceProvider();
             }
             else

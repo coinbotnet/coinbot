@@ -18,7 +18,6 @@ namespace Coinbot.Core
         private Stack<double> _stack = new Stack<double>();
         private Stack<double> _previousPercentage = new Stack<double>();
         private Dictionary<string, double> _previousSellPercentage = new Dictionary<string, double>();
-        private bool _huntingModeActive = false;
         private readonly IStockApiService _service;
         private readonly IDatabaseService _db;
         private readonly ILogger<Coinbot> _logger;

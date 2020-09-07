@@ -20,7 +20,7 @@ namespace Coinbot.Tests
             var serviceCollection = new ServiceCollection();
             serviceCollection
                 .AddAutoMapper(typeof(StockApiService))
-                .AddTransient<IStockApiService, StockApiService>();
+                .AddSingleton<IStockApiService, StockApiService>();
 
             _provider = serviceCollection.BuildServiceProvider();
             _service = _provider.GetService<IStockApiService>();

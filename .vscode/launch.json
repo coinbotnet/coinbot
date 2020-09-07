@@ -16,14 +16,15 @@
                 "--verbose=true",
                 "--stock=Binance",
                 "--basecoin=BTC",
-                "--targetcoin=STRAT",
+                "--targetcoin=BNB",
                 "--api-key=${env:API_KEY}",
                 "--secret=${env:SECRET}",
-                "--buy-change=0,00",
-                "--sell-change=0,00",
+                "--buy-change=0,001",
+                "--sell-change=0,001",
                 "--quantity=0,001",
-                "--ceiling=0,001",
-                "--interval=30"
+                "--ceiling=0,02",
+                "--interval=5",
+                "--test-mode=true"
             ],
             "cwd": "${workspaceFolder}/Coinbot.Core",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
