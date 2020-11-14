@@ -23,12 +23,12 @@
                 "--sell-change=0,001",
                 "--quantity=0,001",
                 "--ceiling=0,02",
-                "--interval=5",
+                "--interval=30",
                 "--test-mode=true"
             ],
             "cwd": "${workspaceFolder}/Coinbot.Core",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-            "console": "internalConsole",
+            "console": "externalTerminal",
             "stopAtEntry": false
         },
         {
