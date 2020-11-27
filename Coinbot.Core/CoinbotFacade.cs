@@ -13,20 +13,20 @@ using Microsoft.Extensions.Logging;
 
 namespace Coinbot.Core
 {
-    public class Coinbot
+    public class CoinbotFacade
     {
         private Stack<double> _stack = new Stack<double>();
         private Stack<double> _previousPercentage = new Stack<double>();
         private Dictionary<string, double> _previousSellPercentage = new Dictionary<string, double>();
         private readonly IStockApiService _service;
         private readonly IDatabaseService _db;
-        private readonly ILogger<Coinbot> _logger;
+        private readonly ILogger<CoinbotFacade> _logger;
         private readonly IBot _bot;
         private readonly SessionInfo _session;
 
-        public Coinbot(IStockApiService service,
+        public CoinbotFacade(IStockApiService service,
                         IDatabaseService db,
-                        ILogger<Coinbot> logger,
+                        ILogger<CoinbotFacade> logger,
                         IBot bot,
                         SessionInfo session)
         {

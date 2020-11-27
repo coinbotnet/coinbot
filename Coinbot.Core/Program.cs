@@ -33,7 +33,7 @@ namespace Coinbot.Core
 
                 if(session != null) {
                     ConfigureServices(config, session);
-                    ConfigureCoinbot(Container.GetService<Coinbot>(), session);
+                    ConfigureCoinbot(Container.GetService<CoinbotFacade>(), session);
                 }
             }
             catch (Exception ex)

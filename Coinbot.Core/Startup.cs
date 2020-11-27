@@ -31,7 +31,7 @@ namespace Coinbot.Core
                 .AddAutoMapper(typeof(DatabaseService).GetTypeInfo().Assembly, Assembly.LoadFile(connector), typeof(SimpleBot).GetTypeInfo().Assembly)
                 .AddSingleton<IDatabaseService, DatabaseService>()
                 .AddSingleton<IBot, SimpleBot>()
-                .AddSingleton<Coinbot>()
+                .AddSingleton<CoinbotFacade>()
                 .AddSingleton<SessionInfo>(session)
                 .Configure<CoinbotConfig>(myOptions =>
                 {
@@ -119,7 +119,7 @@ namespace Coinbot.Core
             return result;
         }
 
-        public static void ConfigureCoinbot(Coinbot bot, SessionInfo session)
+        public static void ConfigureCoinbot(CoinbotFacade bot, SessionInfo session)
         {
             var logger = LogManager.GetCurrentClassLogger();
             var tasks = new List<Task>();
