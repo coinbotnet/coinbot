@@ -32,7 +32,7 @@ namespace Coinbot.Tests
                     loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
                 })
                 .AddAutoMapper(typeof(StockApiService))
-                .AddTransient<IStockApiService, StockApiService>()
+                .AddTransient<IStockApiService, Bitdummy.StockApiService>()
                 .AddTransient<IBot, SimpleBot>()
                 .AddSingleton<IDatabaseService, TempDb.DatabaseService>()
                 .AddSingleton<SessionInfo>(new SessionInfo

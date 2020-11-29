@@ -1,6 +1,9 @@
 ﻿using System;
+using Coinbot.Domain.Contracts;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog;
 using NLog.Extensions.Logging;
 using System.Threading;
 using McMaster.Extensions.CommandLineUtils;
