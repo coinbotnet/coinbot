@@ -43,14 +43,14 @@ namespace Coinbot.Tests
         [Fact]
         public async void PlaceBuyOrder()
         {
-            var result = await _service.PlaceBuyOrder("BTC", "BNB", 0.002, System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), 0.0021767, true);
+            var result = await _service.PlaceBuyOrder("BTC", "BNB", 0.02, System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), 0.00861400000, true);
             Assert.True(result.Success, "Couldn't place buy order ...");
         }
 
         [Fact]
         public async void PlaceSellOrder()
         {
-            var result = await _service.PlaceSellOrder("BTC", "BNB", 0.002, System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), 1, 0.0021767, null, true);
+            var result = await _service.PlaceSellOrder("BTC", "BNB", 0.02, System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), 1, 0.008614000000, null, true);
             Assert.True(result.Success, "Couldn't place sell order ...");
         }
     }
