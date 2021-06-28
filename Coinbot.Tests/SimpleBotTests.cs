@@ -11,6 +11,7 @@ using NLog.Extensions.Logging;
 using Microsoft.Extensions.Logging;
 using Coinbot.Domain.Contracts.Models;
 using NLog;
+using Xunit.Abstractions;
 
 namespace Coinbot.Tests
 {
@@ -22,29 +23,27 @@ namespace Coinbot.Tests
         private readonly IDatabaseService _db;
         private readonly ILogger<SimpleBotTests> _logger;
         private readonly SessionInfo _session;
-        public SimpleBotTests()
+
+        public SimpleBotTests(ITestOutputHelper outputHelper)
         {
+            OutputHelper = outputHelper;
             var serviceCollection = new ServiceCollection();
             serviceCollection
-                .AddLogging(loggingBuilder =>
-                {
-                    loggingBuilder.AddConsole();
-                    loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
-                })
+                .AddLogging((builder) => builder.AddXUnit(OutputHelper))
                 .AddAutoMapper(typeof(StockApiService))
                 .AddTransient<IStockApiService, Bitdummy.StockApiService>()
                 .AddTransient<IBot, SimpleBot>()
                 .AddSingleton<IDatabaseService, TempDb.DatabaseService>()
                 .AddSingleton<SessionInfo>(new SessionInfo
                 {
-                    BuyoutCeiling = 0.02,
+                    BuyoutCeiling = 400,
                     ChangeToBuy = 0.02,
                     ChangeToSell = 0.02,
-                    Interval = 3600,
-                    BaseCoin = "BTC",
-                    TargetCoin = "BNB",
+                    Interval = 86400,
+                    BaseCoin = "EUR",
+                    TargetCoin = "BTC",
                     Stock = "Binance",
-                    Stack = 0.002
+                    Stack = 100
                 });
 
             _provider = serviceCollection.BuildServiceProvider();
@@ -52,8 +51,9 @@ namespace Coinbot.Tests
             _db = _provider.GetService<IDatabaseService>();
             _logger = _provider.GetService<ILogger<SimpleBotTests>>();
             _session = _provider.GetService<SessionInfo>();
-        
         }
+
+        private ITestOutputHelper OutputHelper { get; }
 
         [Fact]
         public async void Simulation()
