@@ -10,9 +10,11 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

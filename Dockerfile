@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /build
 
 # # copy everything else and build app
@@ -8,7 +8,7 @@ RUN dotnet restore Coinbot.sln
 WORKDIR /build/Coinbot.Core
 RUN dotnet publish -c Release -o ../out Coinbot.Core.csproj
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS runtime
 WORKDIR /app
  
 COPY --from=build ./build/out .

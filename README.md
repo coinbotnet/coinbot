@@ -10,7 +10,7 @@ You can build and run coinbot for both Docker Windows and Docker Linux Container
 
 ## Pulling image from official docker repository
 
-`docker pull maplepoland/coinbotnet:latest`
+`docker pull ghcr.io/coinbotnet/coinbot:latest`
 
 ## Running example
 
@@ -19,7 +19,7 @@ docker run -d \
  --name=binance-btc-bnb \
  -v binance-btc-bnb:/root/.config/Coinbot \
  -v /opt/connectors:/app/Connectors \
- coinbotnet/coinbot:latest \
+ ghcr.io/coinbotnet/coinbot:latest \
  --stock=Binance \
  --basecoin=BTC \
  --targetcoin=BNB \
