@@ -37,7 +37,7 @@ namespace Coinbot.Tests
         public async void GetOrder()
         {
             var result = await _service.GetOrder("BTC","LTC", System.Environment.GetEnvironmentVariable("API_KEY"), System.Environment.GetEnvironmentVariable("SECRET"), "1");
-            Assert.Equal(result.Message, "{\"code\":-2013,\"msg\":\"Order does not exist.\"}");
+            Assert.Equal("{\"code\":-2013,\"msg\":\"Order does not exist.\"}", result.Message);
         }
 
         [Fact]
